@@ -24,10 +24,7 @@ public enum ErrorCode {
   // Analysis
   ANALYSIS_FAILED(500, "A001", "분석에 실패했습니다"),
   OCR_PROCESSING_FAILED(500, "A002", "OCR 처리에 실패했습니다"),
-  
-  // Violation
-  VIOLATION_NOT_FOUND(404, "V001", "위반 사항을 찾을 수 없습니다"),
-  
+
   // Case
   CASE_NOT_FOUND(404, "CS001", "케이스를 찾을 수 없습니다"),
   INVALID_CASE_STATUS(400, "CS002", "잘못된 케이스 상태입니다"),
