@@ -29,8 +29,8 @@ public class SwaggerConfig {
     
     return new OpenAPI()
       .info(info)
-      .addSecurityItem(securityRequirement) // Security Requirement 추가
+      .addSecurityItem(securityRequirement)
       .components(new io.swagger.v3.oas.models.Components()
-        .addSecuritySchemes("BearerAuth", securityScheme)); // Security Scheme 등록
+        .addSecuritySchemes("BearerAuth", securityScheme));
   }
 } 
