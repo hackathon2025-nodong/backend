@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Date;
+
 @Entity
 @Table(name = "document")
 @Getter
@@ -28,7 +30,12 @@ public class Document extends BaseEntity {
     @Column(name = "originUrl", nullable = false)
     private String originUrl;
 
-    //issuedate, expirydate는 특수 문서에만 적용?
+    @Column(name = "issueDate")
+    private Date issueDate;
+
+    @Column(name = "expiryDate")
+    private Date expiryDate;
+
     @Column(name = "extractedData", nullable = false)
     private String extractedData;
 
