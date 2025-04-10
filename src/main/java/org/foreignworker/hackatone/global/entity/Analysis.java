@@ -14,7 +14,7 @@ public class Analysis extends BaseEntity{
     private Integer analysisId;
     //uid는 document에 uid 있는데 넣어야하나 ?
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name="documentId")
     private Document document;
 

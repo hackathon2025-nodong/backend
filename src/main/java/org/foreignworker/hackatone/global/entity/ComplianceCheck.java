@@ -18,7 +18,7 @@ public class ComplianceCheck extends BaseEntity {
     @Id@GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer checkId;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name="documentId")
     private Document document;
 

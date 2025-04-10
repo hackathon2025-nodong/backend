@@ -19,7 +19,7 @@ public class Document extends BaseEntity {
     @Id@GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer documentId;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "uid")
     private User user;
 
