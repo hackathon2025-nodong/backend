@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
 
+import java.sql.Time;
 import java.util.Date;
 
 @Entity
@@ -45,7 +46,9 @@ public class User extends BaseEntity{
 
     @Column(name = "birthDate", nullable = false)
     private Date birthDate;
-    //lastlogin 빼도?
+
+    @Column(name = "lastLogin", nullable = false)
+    private Time lastLogin;
 
 
 }

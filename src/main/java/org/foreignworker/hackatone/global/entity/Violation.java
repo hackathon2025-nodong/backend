@@ -14,7 +14,7 @@ public class Violation extends BaseEntity{
     }
     @Id@GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer violationId;
-    //doc id가 아니라 check id?
+
     @Column(name="code", nullable = false)
     private String code;
 
