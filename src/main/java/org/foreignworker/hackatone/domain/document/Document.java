@@ -1,8 +1,10 @@
-package org.foreignworker.hackatone.global.entity;
+package org.foreignworker.hackatone.domain.document;
 
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.foreignworker.hackatone.global.entity.BaseEntity;
+import org.foreignworker.hackatone.domain.user.User;
 
 import java.util.Date;
 

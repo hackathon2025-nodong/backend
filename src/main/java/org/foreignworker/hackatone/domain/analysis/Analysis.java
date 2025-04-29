@@ -1,14 +1,16 @@
-package org.foreignworker.hackatone.global.entity;
+package org.foreignworker.hackatone.domain.analysis;
 
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.foreignworker.hackatone.global.entity.BaseEntity;
+import org.foreignworker.hackatone.domain.document.Document;
 
 @Entity
 @Table
 @Getter
 @Setter
-public class Analysis extends BaseEntity{
+public class Analysis extends BaseEntity {
 
     @Id@GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer analysisId;

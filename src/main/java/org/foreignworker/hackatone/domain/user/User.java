@@ -1,9 +1,10 @@
-package org.foreignworker.hackatone.global.entity;
+package org.foreignworker.hackatone.domain.user;
 
 import jakarta.persistence.*;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import org.foreignworker.hackatone.domain.country.Country;
+import org.foreignworker.hackatone.global.entity.BaseEntity;
 import org.hibernate.annotations.ColumnDefault;
 
 import java.sql.Time;
@@ -13,7 +14,7 @@ import java.util.Date;
 @Table(name = "User")
 @Getter
 @Setter
-public class User extends BaseEntity{
+public class User extends BaseEntity {
     public enum Gender{
         MALE, FEMALE
     }
