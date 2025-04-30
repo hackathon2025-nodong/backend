@@ -1,5 +1,6 @@
-package org.foreignworker.hackatone.domain.user;
+package org.foreignworker.hackatone.domain.user.entity;
 
+import org.foreignworker.hackatone.domain.user.Gender;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,11 +16,8 @@ import java.util.Date;
 @Getter
 @Setter
 public class User extends BaseEntity {
-    public enum Gender{
-        MALE, FEMALE
-    }
     @Id
-    private String uid;
+    private Integer uid;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "countryId") // FK

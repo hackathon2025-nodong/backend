@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.foreignworker.hackatone.global.entity.BaseEntity;
-import org.foreignworker.hackatone.domain.user.User;
+import org.foreignworker.hackatone.domain.user.entity.User;
 
 import java.util.Date;
 
@@ -12,6 +12,7 @@ import java.util.Date;
 @Table(name = "document")
 @Getter
 @Setter
+//문서 제외
 public class Document extends BaseEntity {
     public enum DocumentType{
         Residence,
