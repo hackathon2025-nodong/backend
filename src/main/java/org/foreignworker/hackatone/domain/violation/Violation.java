@@ -6,7 +6,7 @@ import lombok.Setter;
 import org.foreignworker.hackatone.global.entity.BaseEntity;
 
 @Entity
-@Table(name="Violation")
+@Table(name="Violations")
 @Getter
 @Setter
 public class Violation extends BaseEntity {

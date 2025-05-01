@@ -12,7 +12,7 @@ import java.sql.Time;
 import java.util.Date;
 
 @Entity
-@Table(name = "User")
+@Table(name = "Users")
 @Getter
 @Setter
 public class User extends BaseEntity {
