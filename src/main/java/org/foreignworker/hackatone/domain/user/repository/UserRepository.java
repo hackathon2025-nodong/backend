@@ -1,5 +1,4 @@
 package org.foreignworker.hackatone.domain.user.repository;
-
 import org.foreignworker.hackatone.domain.user.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 

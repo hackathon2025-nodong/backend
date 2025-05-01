@@ -16,7 +16,8 @@ import java.util.Date;
 @Getter
 @Setter
 public class User extends BaseEntity {
-    @Id@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long uid;
 
     @ManyToOne(fetch = FetchType.LAZY)
