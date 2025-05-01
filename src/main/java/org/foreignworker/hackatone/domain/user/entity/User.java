@@ -17,7 +17,11 @@ import java.util.Date;
 @Setter
 public class User extends BaseEntity {
     @Id
-    private Integer uid;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long uid;
+
+    @Column(name = "email", nullable = false, unique = true)
+    private String email;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "countryId") // FK
