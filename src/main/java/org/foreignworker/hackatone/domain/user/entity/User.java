@@ -16,8 +16,8 @@ import java.util.Date;
 @Getter
 @Setter
 public class User extends BaseEntity {
-    @Id
-    private Integer uid;
+    @Id@GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long uid;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "countryId") // FK
@@ -28,6 +28,9 @@ public class User extends BaseEntity {
 
     @Column(name = "phoneNumber", nullable = false)
     private String phoneNumber;
+
+    @Column(unique = true, nullable = false)
+    private String email;
 
     @Column(name = "password", nullable = false)
     private String password;
