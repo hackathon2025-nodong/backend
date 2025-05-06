@@ -44,6 +44,6 @@ logging:
     
 # JWT 설정 (실제 사용 시 환경 변수나 외부 설정으로 관리)
 jwt:
-  secret: labor-protection-secret-key-must-be-at-least-64-characters-long-for-security-reasons 
-  expiration-time: 86400000 # 24시간
-  refresh-expiration-time: 2592000000 # 30일 
+  secret: YWJjZGVmZ2hpamtsbW5vcHFyc3R1dnd4eXo1MjM0NTY3ODkwMTIzNDU2Nzg= # base64 인코딩된 32바이트 이상 문자열
+  access-token-validity: 1800000         # 30분 = 30 * 60 * 1000
+  refresh-token-validity: 1209600000     # 2주 = 14 * 24 * 60 * 60 * 1000

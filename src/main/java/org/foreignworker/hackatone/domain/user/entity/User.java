@@ -1,5 +1,6 @@
 package org.foreignworker.hackatone.domain.user.entity;
 
+import lombok.Builder;
 import org.foreignworker.hackatone.domain.user.Gender;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -53,5 +54,6 @@ public class User extends BaseEntity {
     @Column(name = "lastLogin", nullable = false)
     private Time lastLogin;
 
+    private boolean accountLocked = false;
 
 }
