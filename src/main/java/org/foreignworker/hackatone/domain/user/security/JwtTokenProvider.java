@@ -22,7 +22,6 @@ import java.util.Date;
 @Slf4j
 public class JwtTokenProvider {
 
-    //key는 배포시 설정
     @Value("${jwt.secret}")
     private String secretKey;
 
