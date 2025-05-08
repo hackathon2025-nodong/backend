@@ -2,22 +2,27 @@ package org.foreignworker.hackatone.domain.country;
 
 import jakarta.persistence.*;
 import lombok.Getter;
-import lombok.Setter;
+import lombok.NoArgsConstructor;
 import org.foreignworker.hackatone.global.entity.BaseEntity;
 
 @Entity
-@Table(name = "Country")
+@Table(name = "Countries")
 @Getter
-@Setter
+@NoArgsConstructor
 public class Country extends BaseEntity {
-    @Id@GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer countryId;
-
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    
     @Column(nullable = false, unique = true)
-    private String countryName;
+    private String name;
+    
+    @Column(nullable = false, unique = true)
+    private String code;
 
-    @Column(nullable = false)
-    private String language;
-
-
+    public Country(String name, String code) {
+        this.name = name;
+        this.code = code;
+    }
 }

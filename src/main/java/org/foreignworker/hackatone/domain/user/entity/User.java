@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.foreignworker.hackatone.domain.country.Country;
+import org.foreignworker.hackatone.domain.user.Role;
 import org.foreignworker.hackatone.global.entity.BaseEntity;
 import org.hibernate.annotations.ColumnDefault;
 
@@ -41,8 +42,8 @@ public class User extends BaseEntity {
     private String profileImageUrl;
 
     @Column(name="role",nullable = false)
-    @ColumnDefault("'user'")
-    private String role;
+    @ColumnDefault("'USER'")
+    private Role role;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "gender", nullable = false)
