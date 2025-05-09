@@ -25,7 +25,6 @@ public class JwtTokenProvider {
     @Value("${jwt.secret}")
     private String secretKey;
 
-
     private Key key;
 
     @Value("${jwt.access-token-validity}")
