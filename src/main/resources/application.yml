@@ -33,7 +33,6 @@ spring:
               model: gemini-2.0-flash-001
               temperature: 0.5
 
-
   datasource:
     url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
     driver-class-name: org.h2.Driver
@@ -60,9 +59,9 @@ logging:
     com.google.cloud: DEBUG
 
 jwt:
-  secret: ${JWT_SECRET_KEY}
-  access-token-validity: 1800000         # 30분
-  refresh-token-validity: 1209600000     # 2주
+  secret: ${JWT_SECRET_KEY} # base64 인코딩된 32바이트 이상 문자열
+  access-token-validity: 1800000         # 30분 = 30 * 60 * 1000
+  refresh-token-validity: 1209600000     # 2주 = 14 * 24 * 60 * 60 * 1000
 
 cloud:
   aws:
