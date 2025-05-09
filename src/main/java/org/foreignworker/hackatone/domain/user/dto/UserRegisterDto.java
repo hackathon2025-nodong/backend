@@ -2,7 +2,7 @@ package org.foreignworker.hackatone.domain.user.dto;
 
 import jakarta.validation.constraints.*;
 import lombok.Data;
-import org.foreignworker.hackatone.domain.user.Gender;
+import org.foreignworker.hackatone.domain.user.enums.Gender;
 
 import java.util.Date;
 

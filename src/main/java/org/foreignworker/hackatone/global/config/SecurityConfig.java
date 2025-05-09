@@ -1,6 +1,7 @@
 package org.foreignworker.hackatone.global.config;
 
 import org.foreignworker.hackatone.domain.user.security.JwtTokenProvider;
+import org.foreignworker.hackatone.domain.user.service.TokenBlacklistService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,9 +18,11 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class SecurityConfig {
     private final JwtTokenProvider jwtTokenProvider;
-
-    public SecurityConfig(JwtTokenProvider jwtTokenProvider) {
+    private final TokenBlacklistService tokenBlacklistService;
+    public SecurityConfig(JwtTokenProvider jwtTokenProvider,
+                          TokenBlacklistService tokenBlacklistService) {
         this.jwtTokenProvider = jwtTokenProvider;
+        this.tokenBlacklistService = tokenBlacklistService;
     }
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception{
@@ -42,7 +45,7 @@ public class SecurityConfig {
                 .requestMatchers("/h2-console/**").permitAll()
                 // 나머지 요청은 인증 필요
                 .anyRequest().authenticated())
-                .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider, tokenBlacklistService), UsernamePasswordAuthenticationFilter.class);
 
         http.headers(headers -> headers.frameOptions(frameOptions -> frameOptions.sameOrigin()));
 

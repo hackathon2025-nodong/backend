@@ -1,10 +1,13 @@
 package org.foreignworker.hackatone.domain.user.controller;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.foreignworker.hackatone.domain.user.dto.JwtAuthenticationResponse;
 import org.foreignworker.hackatone.domain.user.dto.UserLoginDto;
 import org.foreignworker.hackatone.domain.user.security.JwtTokenProvider;
+import org.foreignworker.hackatone.domain.user.service.TokenBlacklistService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -21,6 +24,8 @@ public class LoginController {
     private final AuthenticationManager authenticationManager;
     @Autowired
     private final JwtTokenProvider jwtTokenProvider;
+
+    private final TokenBlacklistService tokenBlacklistService;
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody UserLoginDto request) {
@@ -40,5 +45,15 @@ public class LoginController {
         } catch (AuthenticationException e) {
             return ResponseEntity.status(401).body("Invalid email or password");
         }
+    }
+
+    @PostMapping("/logout")
+    public ResponseEntity<?> logout(HttpServletRequest request) {
+        String token = jwtTokenProvider.resolveToken(request);
+        if (token != null && jwtTokenProvider.validateToken(token)) {
+            tokenBlacklistService.blacklist(token);
+            return ResponseEntity.ok("logout");
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid token.");
     }
 }
