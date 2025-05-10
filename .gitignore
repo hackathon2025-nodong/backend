@@ -36,4 +36,5 @@ out/
 ### VS Code ###
 .vscode/
 
-keys/google-credentials
+keys/
+keys/google-credentials.json

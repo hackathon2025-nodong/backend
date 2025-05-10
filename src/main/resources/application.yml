@@ -1,10 +1,7 @@
 spring:
   application:
     name: labor-protection-service
-    
-  profiles:
-    active: local
-    
+
   jpa:
     open-in-view: false
     hibernate:
@@ -14,39 +11,58 @@ spring:
         format_sql: true
         default_batch_fetch_size: 100
     database-platform: org.hibernate.dialect.H2Dialect
-        
+
   servlet:
     multipart:
       max-file-size: 10MB
       max-request-size: 10MB
-      
+
+  ai:
+    vertex:
+      project-id: nodong
+      location: us-central1
+      credentials-file: classpath:keys/google-credentials.json
+
+      ai:
+        gemini:
+          project-id: nodong
+          location: us-central1
+          credentials-uri: classpath:keys/google-credentials.json
+          chat:
+            options:
+              model: gemini-2.0-flash-001
+              temperature: 0.5
+
+
   datasource:
     url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
     driver-class-name: org.h2.Driver
     username: sa
-    password: 
-    
+    password:
+
   h2:
     console:
       enabled: true
       path: /h2-console
-      
+
 server:
   port: 8080
   servlet:
     context-path: /api
-    
+
 logging:
   level:
+    org.springframework.boot.autoconfigure.condition: DEBUG
+    org.springframework.ai: DEBUG
     root: INFO
     org.foreignworker.hackatone: DEBUG
     org.hibernate.SQL: DEBUG
-    
-# JWT 설정 (실제 사용 시 환경 변수나 외부 설정으로 관리)
+    com.google.cloud: DEBUG
+
 jwt:
-  secret: ${JWT_SECRET_KEY} # base64 인코딩된 32바이트 이상 문자열
-  access-token-validity: 1800000         # 30분 = 30 * 60 * 1000
-  refresh-token-validity: 1209600000     # 2주 = 14 * 24 * 60 * 60 * 1000
+  secret: ${JWT_SECRET_KEY}
+  access-token-validity: 1800000         # 30분
+  refresh-token-validity: 1209600000     # 2주
 
 cloud:
   aws:
