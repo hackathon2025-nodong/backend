@@ -40,7 +40,7 @@ public class SecurityConfig {
             .authorizeHttpRequests(authorize -> authorize
                 // Swagger UI 관련 경로 허용 (context-path가 /api인 경우)
                 .requestMatchers("/auth/**","/swagger-ui/**", "/swagger-ui.html", "/v3/api-docs/**",
-                                "/swagger-resources/**", "/api-docs/**","/api/ai/**").permitAll()
+                                "/swagger-resources/**", "/api-docs/**", "/ai/**").permitAll()
                 // H2
                 .requestMatchers("/h2-console/**").permitAll()
                 // 나머지 요청은 인증 필요
