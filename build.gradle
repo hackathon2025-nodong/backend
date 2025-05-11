@@ -23,6 +23,10 @@ repositories {
     mavenCentral()
     maven { url 'https://repo.spring.io/milestone' }
     maven { url 'https://repo.spring.io/snapshot' }
+    maven {
+        name = 'Central Portal Snapshots'
+        url = 'https://central.sonatype.com/repository/maven-snapshots/'
+    }
 }
 
 dependencies {
@@ -32,15 +36,18 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    
+    // Spring AI dependencies
+    implementation platform("org.springframework.ai:spring-ai-bom:1.0.0-SNAPSHOT")
+    implementation 'org.springframework.ai:spring-ai-starter-model-vertex-ai-gemini'
+    implementation 'org.springframework.ai:spring-ai-starter-vector-store-milvus'
+    implementation 'org.springframework.ai:spring-ai-starter-model-transformers'
 
+    
     implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.3.0'
-    implementation 'org.springframework.boot:spring-boot-starter-security'
-    implementation platform("org.springframework.ai:spring-ai-bom:1.0.0-M8")
-    implementation 'org.springframework.ai:spring-ai-openai'
     implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
     runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'
     runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.5'
-
 
     compileOnly 'org.projectlombok:lombok'
     runtimeOnly 'com.h2database:h2'

@@ -5,36 +5,6 @@ spring:
   profiles:
     active: local
     
-  # Milvus 벡터 스토어 설정
-  ai:
-    vectorstore:
-      milvus:
-        client:
-          host: ${MILVUS_HOST}
-          port: 19530
-          uri: ${MILVUS_URI}
-          token: ${MILVUS_TOKEN}
-          secure: true
-          connect-timeout: 60000  # 연결 타임아웃을 60초로 설정
-          rpc-timeout: 30000     # RPC 타임아웃을 30초로 설정
-        database-name: default
-        collection-name: korean_docs        # 파이썬에서 만든 이름
-        embedding-dimension: 1024           # KURE-v1 차원
-        metric-type: COSINE
-        index-type: IVF_FLAT
-        initialize-schema: true            # 스키마 자동 생성 활성화
-        
-    # Transformers 설정
-    transformers:
-      embedding:
-        enabled: true
-        model-name: nlpai-lab/KURE-v1
-        framework: onnx            # DJL+ONNXRuntime 사용
-        base-path: ${MODEL_DIR:/opt/models/kure}
-        tokenizer:
-          truncation: true
-          max-sequence-length: 384
-    
   jpa:
     open-in-view: false
     hibernate:
@@ -44,37 +14,56 @@ spring:
         format_sql: true
         default_batch_fetch_size: 100
     database-platform: org.hibernate.dialect.H2Dialect
-        
+
   servlet:
     multipart:
       max-file-size: 10MB
       max-request-size: 10MB
-      
+
+  ai:
+    vertex:
+      project-id: nodong
+      location: us-central1
+      credentials-file: classpath:keys/google-credentials.json
+
+      ai:
+        gemini:
+          project-id: nodong
+          location: us-central1
+          credentials-uri: classpath:keys/google-credentials.json
+          chat:
+            options:
+              model: gemini-2.0-flash-001
+              temperature: 0.5
+
+
   datasource:
     url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
     driver-class-name: org.h2.Driver
     username: sa
-    password: 
-    
+    password:
+
   h2:
     console:
       enabled: true
       path: /h2-console
-      
+
 server:
   port: 8080
   servlet:
     context-path: /api
-    
+
 logging:
   level:
+    org.springframework.boot.autoconfigure.condition: DEBUG
+    org.springframework.ai: DEBUG
     root: INFO
     org.foreignworker.hackatone: DEBUG
     org.hibernate.SQL: DEBUG
-    
-# JWT 설정 (실제 사용 시 환경 변수나 외부 설정으로 관리)
+    com.google.cloud: DEBUG
+
 jwt:
-  secret:  # base64 인코딩된 32바이트 이상 문자열
+  secret: ${JWT_SECRET_KEY} # base64 인코딩된 32바이트 이상 문자열
   access-token-validity: 1800000         # 30분 = 30 * 60 * 1000
   refresh-token-validity: 1209600000     # 2주 = 14 * 24 * 60 * 60 * 1000
 
