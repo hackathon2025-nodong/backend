@@ -32,20 +32,17 @@ public class DocumentController {
             @RequestParam(value = "issueDate", required = false) Date issueDate,
             @RequestParam(value = "expiryDate", required = false) Date expiryDate) throws IOException {
 
-        String fileUrl = s3Service.uploadDocument(file, documentType);
         Document document = documentService.saveDocument(
-                userDetails.getUser(),
-                documentType,
-                fileUrl,
-                issueDate,
-                expiryDate
+                file,
+                "문서를 분석해주세요",
+                userDetails.getUser()
         );
 
         return ResponseEntity.ok(Map.of(
                 "status", "success",
                 "message", "문서가 성공적으로 업로드되었습니다.",
-                "documentId", document.getDocumentId(),
-                "fileUrl", document.getOriginUrl()
+                "documentId", document.getId(),
+                "fileUrl", document.getS3Url()
         ));
     }
 

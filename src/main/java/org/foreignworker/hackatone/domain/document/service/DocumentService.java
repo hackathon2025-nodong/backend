@@ -1,6 +1,7 @@
 package org.foreignworker.hackatone.domain.document.service;
 
 import lombok.RequiredArgsConstructor;
+import org.foreignworker.hackatone.domain.chatbot.GeminiChatService;
 import org.foreignworker.hackatone.domain.document.Document;
 import org.foreignworker.hackatone.domain.document.Document.DocumentType;
 import org.foreignworker.hackatone.domain.document.repository.DocumentRepository;
@@ -21,7 +22,7 @@ public class DocumentService {
 
     private final DocumentRepository documentRepository;
     private final S3Service s3Service;
-    private final GeminiService geminiService;
+    private final GeminiChatService geminiService;
 
     @Transactional
     public Document saveDocument(MultipartFile file, String prompt, User user) throws IOException {
@@ -29,14 +30,16 @@ public class DocumentService {
         String s3Url = s3Service.uploadFile(file);
 
         // Analyze with Gemini
-        String analysis = geminiService.analyzeDocument(file, prompt);
+        String analysis = geminiService.chat(String.valueOf(file), prompt);
 
         // Create and save document
         Document document = Document.builder()
                 .user(user)
-                .documentType(DocumentType.IMAGE)
+                .documentType(DocumentType.PayStub)
                 .s3Url(s3Url)
+                .originUrl(s3Url)
                 .analysis(analysis)
+                .extractedData("") // Initialize with empty string
                 .build();
 
         return documentRepository.save(document);
@@ -64,5 +67,23 @@ public class DocumentService {
     @Transactional(readOnly = true)
     public List<Document> getUserDocuments(User user) {
         return documentRepository.findByUser(user);
+    }
+
+    @Transactional
+    public Document analyzeDocument(MultipartFile file, String prompt) throws IOException {
+        // Upload to S3
+        String s3Url = s3Service.uploadFile(file);
+
+        // Analyze with Gemini
+        String analysis = geminiService.chat(s3Url, prompt);
+
+        // Create and save document
+        Document document = Document.builder()
+                .documentType(DocumentType.PayStub)
+                .s3Url(s3Url)
+                .analysis(analysis)
+                .build();
+
+        return documentRepository.save(document);
     }
 } 
