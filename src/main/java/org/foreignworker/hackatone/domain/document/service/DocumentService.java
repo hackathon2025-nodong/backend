@@ -10,8 +10,9 @@ import org.foreignworker.hackatone.global.error.exception.ApiException;
 import org.foreignworker.hackatone.global.service.S3Service;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.util.Date;
+import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -20,16 +21,23 @@ public class DocumentService {
 
     private final DocumentRepository documentRepository;
     private final S3Service s3Service;
+    private final GeminiService geminiService;
 
     @Transactional
-    public Document saveDocument(User user, DocumentType documentType, String fileUrl, Date issueDate, Date expiryDate) {
-        Document document = new Document();
-        document.setUser(user);
-        document.setDocumentType(documentType);
-        document.setOriginUrl(fileUrl);
-        document.setIssueDate(issueDate);
-        document.setExpiryDate(expiryDate);
-        document.setExtractedData(""); // OCR 처리 결과를 저장할 필드
+    public Document saveDocument(MultipartFile file, String prompt, User user) throws IOException {
+        // Upload to S3
+        String s3Url = s3Service.uploadFile(file);
+
+        // Analyze with Gemini
+        String analysis = geminiService.analyzeDocument(file, prompt);
+
+        // Create and save document
+        Document document = Document.builder()
+                .user(user)
+                .documentType(DocumentType.IMAGE)
+                .s3Url(s3Url)
+                .analysis(analysis)
+                .build();
 
         return documentRepository.save(document);
     }
